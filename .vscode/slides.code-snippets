@@ -1,0 +1,69 @@
+{
+	// Place your ui-meetup-ode-to-code-readability workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Add Code Surfer Columns": {
+		"prefix": "cscols",
+		"body": [
+			"<CodeSurferColumns themes={COLUMN_THEMES}>",
+			"",
+			"<Step>",
+			"",
+			"```${1:js}",
+			"${2:code}",
+			"```",
+			"",
+			"</Step>",
+			"",
+			"</CodeSurferColumns>"
+		],
+		"description": "Add Code Surfer Columns"
+	},
+	"Add a step inside code surfer columns": {
+		"prefix": "csstep",
+		"body": [
+			"",
+			"<Step>",
+			"",
+			"```${1:diff}",
+			"${2:code}",
+			"```",
+			"",
+			"</Step>",
+			""
+		],
+		"description": "Add a step inside code surfer columns"
+	},
+	"Add a step inside code surfer columns with two code blocks": {
+		"prefix": "csstep2",
+		"body": [
+			"",
+			"<Step>",
+			"",
+			"```${1:diff}",
+			"${2:code}",
+			"```",
+			"",
+			"```${3:diff}",
+			"${4:code}",
+			"```",
+			"",
+			"</Step>",
+			""
+		],
+		"description": "Add a step inside code surfer columns"
+	}
+}

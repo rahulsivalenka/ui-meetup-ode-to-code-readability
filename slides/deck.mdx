@@ -422,4 +422,150 @@ const output = {
 
 ---
 
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js
+Object.entries(this.state.configuration).map((entry, index) => {
+  if (keys.includes(entry[0])) {
+    if (entry[0] === 'no_of_CPUs') {
+      if (parseInt(entry[1]) % 2 !== 0 && parseInt(entry[1]) > 1) {
+        error[entry[0]] = 'Select an even number.';
+        error_counts++;
+      }
+    }
+    if (entry[0] === 'memory') {
+      if (parseFloat(entry[1]) % 0.25 !== 0) {
+        error[entry[0]] = 'Value must be in increments of 0.25';
+        error_counts++;
+      }
+    }
+  }
+});
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js
+Object.entries(this.state.configuration).map((entry, index) => {
+  if (keys.includes(entry[0])) {
+    if (entry[0] === 'no_of_CPUs') {
+      if (parseInt(entry[1]) % 2 !== 0 && parseInt(entry[1]) > 1) {
+        error[entry[0]] = 'Select an even number.';
+        error_counts++;
+      }
+    }
+    if (entry[0] === 'memory') {
+      if (parseFloat(entry[1]) % 0.25 !== 0) {
+        error[entry[0]] = 'Value must be in increments of 0.25';
+        error_counts++;
+      }
+    }
+  }
+});
+```
+
+```js title="By avoiding deep nesting"
+Object.entries(this.state.configuration).map((entry, index) => {
+  // early return
+  if (!keys.includes(entry[0])) {
+    return;
+  }
+
+  // combining conditions with logical operators such as && or ||
+  if (entry[0] === 'no_of_CPUs' && parseInt(entry[1]) % 2 !== 0 && parseInt(entry[1]) > 1
+    error[entry[0]] = 'Select an even number.';
+    error_counts++;
+  }
+
+  if (entry[0] === 'memory' && parseFloat(entry[1]) % 0.25 !== 0) {
+    error[entry[0]] = 'Value must be in increments of 0.25';
+    error_counts++;
+  }
+});
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```js title="By naming properly"
+Object.entries(this.state.configuration).map(([key, value], index) => {
+  // early return
+  if (!keys.includes(key)) {
+    return;
+  }
+
+  // combining conditions with logical operators such as && or ||
+  if (key === 'no_of_CPUs' && parseInt(value) % 2 !== 0 && parseInt(value) > 1
+    error[key] = 'Select an even number.';
+    error_counts++;
+  }
+
+  if (key === 'memory' && parseFloat(value) % 0.25 !== 0) {
+    error[key] = 'Value must be in increments of 0.25';
+    error_counts++;
+  }
+});
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```js title="By DRYing"
+Object.entries(this.state.configuration).map(([key, value], index) => {
+  // early return
+  if (!keys.includes(key)) {
+    return;
+  }
+
+  const parsedIntValue = parseInt(value);
+  // combining conditions with logical operators such as && or ||
+  if (key === 'no_of_CPUs' && parsedIntValue % 2 !== 0 && parsedIntValue > 1
+    error[key] = 'Select an even number.';
+    error_counts++;
+  }
+
+  if (key === 'memory' && parseFloat(value) % 0.25 !== 0) {
+    error[key] = 'Value must be in increments of 0.25';
+    error_counts++;
+  }
+});
+```
+
+</Step>
+
+
+<Step>
+
+```diff
+```
+
+```diff
+```
+
+</Step>
+
+
+
+</CodeSurferColumns>
+
+---
+
 Thank You

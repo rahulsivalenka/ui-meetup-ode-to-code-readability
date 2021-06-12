@@ -42,7 +42,7 @@ Readability can be considered as the ability of allowing the code to be easily, 
 
 Code with poor readability is
 
-- difficult to understand
+- diff showNumbersicult to understand
 - longer to debug
 - hard to maintain
 - tricky to extend
@@ -57,7 +57,7 @@ Let's have a look at some examples and try to improve their readability.
 
 <Step>
 
-```js
+```js showNumbers title="Example 1"
 function getFieldDisplayValue(fieldValue) {
   return fieldValue
           ? fieldValue?.value
@@ -79,7 +79,7 @@ function getFieldDisplayValue(fieldValue) {
 
 <Step>
 
-```js
+```js showNumbers title="Example 1"
 function getFieldDisplayValue(fieldValue) {
   return fieldValue
           ? fieldValue?.value
@@ -91,7 +91,7 @@ function getFieldDisplayValue(fieldValue) {
 }
 ```
 
-```js title="By refactoring"
+```js showNumbers title="By refactoring"
 function getFieldDisplayValue(fieldValue) {
   // note the == which checks for both null and undefined
   if (fieldValue == null || fieldValue === '') {
@@ -107,10 +107,10 @@ function getFieldDisplayValue(fieldValue) {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 1"
 ```
 
-```js title="By refactoring further"
+```js showNumbers title="By refactoring further"
 function getFieldDisplayValue(fieldValue) {
   const trimmedValue = (fieldValue?.value ?? fieldValue)?.toString().trim();
 
@@ -125,10 +125,10 @@ function getFieldDisplayValue(fieldValue) {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 1"
 ```
 
-```diff
+```diff showNumbers
 ```
 
 </Step>
@@ -141,7 +141,7 @@ function getFieldDisplayValue(fieldValue) {
 
 <Step>
 
-```jsx
+```js showNumbersx showNumbers title="Example 2"
 const ViewToolbar = ({
   onRefresh,
   lastUpdatedTime,
@@ -155,7 +155,7 @@ const ViewToolbar = ({
   onFilterClose,
   leftContent,
 }) => {
-	// ...
+  // ...
 }
 ```
 
@@ -163,7 +163,7 @@ const ViewToolbar = ({
 
 <Step>
 
-```diff subtitle="Can you see if 'onFilterOpened' prop exists here?"
+```diff showNumbers title="Example 2" subtitle="Can you see if 'onFilterOpened' prop exists here?"
 ```
 
 </Step>
@@ -176,7 +176,7 @@ const ViewToolbar = ({
 
 <Step>
 
-```jsx
+```js showNumbersx showNumbers title="Example 2"
 const ViewToolbar = ({
   onRefresh,
   lastUpdatedTime,
@@ -190,11 +190,11 @@ const ViewToolbar = ({
   onFilterClose,
   leftContent,
 }) => {
-	// ...
+  // ...
 }
 ```
 
-```jsx title="By alpha sorting"
+```js showNumbersx showNumbers title="By alpha sorting"
 const ViewToolbar = ({
   actionContent,
   filterContent,
@@ -208,7 +208,7 @@ const ViewToolbar = ({
   onFilterOpen,
   resetFilters,
 }) => {
-	// ...
+  // ...
 }
 ```
 
@@ -222,7 +222,7 @@ const ViewToolbar = ({
 
 <Step>
 
-```js
+```js showNumbers title="Example 3"
 const output = {
   field: formField.field,
   fieldLabel: formField.display_name,
@@ -256,7 +256,7 @@ const output = {
 
 <Step>
 
-```js
+```js showNumbers title="Example 3"
 const output = {
   field: formField.field,
   fieldLabel: formField.display_name,
@@ -280,7 +280,7 @@ const output = {
 }
 ```
 
-```js title="By DRYing"
+```js showNumbers title="By DRYing"
 // Using object destructuring
 const { component_type, display_name, field } = formField;
 const fieldValue = values[field];
@@ -313,10 +313,10 @@ const output = {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 3"
 ```
 
-```js title="By refactoring"
+```js showNumbers title="By refactoring"
 // Using object destructuring
 const { component_type, display_name, field } = formField;
 const fieldValue = values[field];
@@ -339,10 +339,10 @@ const output = {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 3"
 ```
 
-```js title="By DRYing it again"
+```js showNumbers title="By DRYing it again"
 // Using object destructuring
 const { component_type, display_name, field } = formField;
 const fieldValue = values[field];
@@ -374,10 +374,10 @@ const output = {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 3"
 ```
 
-```js title="By alpha sorting"
+```js showNumbers title="By alpha sorting"
 // Using object destructuring
 const { component_type, display_name, field } = formField;
 const fieldValue = values[field];
@@ -410,10 +410,10 @@ const output = {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 3"
 ```
 
-```diff
+```diff showNumbers
 ```
 
 </Step>
@@ -426,7 +426,7 @@ const output = {
 
 <Step>
 
-```js
+```js showNumbers title="Example 4"
 Object.entries(this.state.configuration).map((entry, index) => {
   if (keys.includes(entry[0])) {
     if (entry[0] === 'no_of_CPUs') {
@@ -455,7 +455,7 @@ Object.entries(this.state.configuration).map((entry, index) => {
 
 <Step>
 
-```js
+```js showNumbers title="Example 4"
 Object.entries(this.state.configuration).map((entry, index) => {
   if (keys.includes(entry[0])) {
     if (entry[0] === 'no_of_CPUs') {
@@ -474,7 +474,7 @@ Object.entries(this.state.configuration).map((entry, index) => {
 });
 ```
 
-```js title="By avoiding deep nesting"
+```js showNumbers title="By avoiding deep nesting"
 Object.entries(this.state.configuration).map((entry, index) => {
   // early return
   if (!keys.includes(entry[0])) {
@@ -498,10 +498,10 @@ Object.entries(this.state.configuration).map((entry, index) => {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 4"
 ```
 
-```js title="By naming properly"
+```js showNumbers title="By naming properly"
 Object.entries(this.state.configuration).map(([key, value], index) => {
   // early return
   if (!keys.includes(key)) {
@@ -525,10 +525,10 @@ Object.entries(this.state.configuration).map(([key, value], index) => {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 4"
 ```
 
-```js title="By DRYing"
+```js showNumbers title="By DRYing"
 Object.entries(this.state.configuration).map(([key, value], index) => {
   // early return
   if (!keys.includes(key)) {
@@ -554,7 +554,271 @@ Object.entries(this.state.configuration).map(([key, value], index) => {
 
 <Step>
 
-```diff
+```diff showNumbers title="Example 4"
+```
+
+```diff showNumbers
+```
+
+</Step>
+
+
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js showNumbers title="Example 5"
+const DataPreview = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [open,setOpen] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  const [detailsItemId, setDetailsItemId] = React.useState(null);
+  const showDialog = () => setOpen(true);
+  const hideDialog = () => setOpen(false);
+  React.useEffect(() => {
+    async(() => {
+      try {
+        setLoading(true);
+        const { data } = await makeApiCall();
+        setData(data);
+        setError(null);
+        setLoading(false);
+      } catch(err) {
+        setError(err.message);
+        setData([]);
+        setLoading(false);
+      }
+    })();
+  }, []);
+  const handleOnItemShowDetails = (id) => {
+    setDetailsItemId(id);
+    showDialog();
+  }
+  return !loading ? (
+    <div>
+      {Boolean(error)
+        ? <DataError message={error} /> 
+        : <DataList data={data} onItemShowDetails={showDialog} />
+      }
+      <ItemDetailDialog itemId={detailsItemId} onClose={hideDialog} open={open} />
+    </div>
+  ) : <Loader />;
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js showNumbers title="Example 5"
+const DataPreview = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [open,setOpen] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  const [detailsItemId, setDetailsItemId] = React.useState(null);
+  const showDialog = () => setOpen(true);
+  const hideDialog = () => setOpen(false);
+  React.useEffect(() => {
+    async(() => {
+      try {
+        setLoading(true);
+        const { data } = await makeApiCall();
+        setData(data);
+        setError(null);
+        setLoading(false);
+      } catch(err) {
+        setError(err.message);
+        setData([]);
+        setLoading(false);
+      }
+    })();
+  }, []);
+  const handleOnItemShowDetails = (id) => {
+    setDetailsItemId(id);
+    showDialog();
+  }
+  return !loading ? (
+    <div>
+      {Boolean(error)
+        ? <DataError message={error} /> 
+        : <DataList data={data} onItemShowDetails={showDialog} />
+      }
+      <ItemDetailDialog itemId={detailsItemId} onClose={hideDialog} open={open} />
+    </div>
+  ) : <Loader />;
+}
+```
+
+```js showNumbers title="By spacing"
+const DataPreview = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [open,setOpen] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  const [detailsItemId, setDetailsItemId] = React.useState(null);
+
+  const showDialog = () => setOpen(true);
+  const hideDialog = () => setOpen(false);
+  
+  React.useEffect(() => {
+    async(() => {
+      try {
+        setLoading(true);
+        const { data } = await makeApiCall();
+        setData(data);
+        setError(null);
+        setLoading(false);
+      } catch(err) {
+        setError(err.message);
+        setData([]);
+        setLoading(false);
+      }
+    })();
+  }, []);
+  
+  const handleOnItemShowDetails = (id) => {
+    setDetailsItemId(id);
+    showDialog();
+  }
+  
+  return !loading ? (
+    <div>
+      {Boolean(error)
+        ? <DataError message={error} /> 
+        : <DataList data={data} onItemShowDetails={showDialog} />
+      }
+  
+      <ItemDetailDialog itemId={detailsItemId} onClose={hideDialog} open={open} />
+    </div>
+  ) : <Loader />;
+}
+```
+
+</Step>
+
+
+<Step>
+
+```diff showNumbers title="Example 5"
+```
+
+```js showNumbers 1:41 title="By logically grouping code blocks"
+const DataPreview = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  React.useEffect(() => {
+    async(() => {
+      try {
+        setLoading(true);
+        const { data } = await makeApiCall();
+        setData(data);
+        setError(null);
+        setLoading(false);
+      } catch(err) {
+        setError(err.message);
+        setData([]);
+        setLoading(false);
+      }
+    })();
+  }, []);
+  
+  const [open,setOpen] = React.useState(false);
+  const showDialog = () => setOpen(true);
+  const hideDialog = () => setOpen(false);
+  
+  const [detailsItemId, setDetailsItemId] = React.useState(null);
+  const handleOnItemShowDetails = (id) => {
+    setDetailsItemId(id);
+    showDialog();
+  }
+  
+  return !loading ? (
+    <div>
+      {Boolean(error)
+        ? <DataError message={error} /> 
+        : <DataList data={data} onItemShowDetails={showDialog} />
+      }
+  
+      <ItemDetailDialog itemId={detailsItemId} onClose={hideDialog} open={open} />
+    </div>
+  ) : <Loader />;
+}
+```
+
+</Step>
+
+<Step>
+
+```diff showNumbers title="Example 5"
+```
+
+```js showNumbers title="By using early return in jsx showNumbers"
+const DataPreview = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  React.useEffect(() => {
+    async(() => {
+      try {
+        setLoading(true);
+        const { data } = await makeApiCall();
+        setData(data);
+        setError(null);
+        setLoading(false);
+      } catch(err) {
+        setError(err.message);
+        setData([]);
+        setLoading(false);
+      }
+    })();
+  }, []);
+  
+  const [open,setOpen] = React.useState(false);
+  const showDialog = () => setOpen(true);
+  const hideDialog = () => setOpen(false);
+  
+  const [detailsItemId, setDetailsItemId] = React.useState(null);
+  const handleOnItemShowDetails = (id) => {
+    setDetailsItemId(id);
+    showDialog();
+  }
+
+  if (loading) {
+    return <Loader />
+  }
+  
+  return (
+    <div>
+      {Boolean(error)
+        ? <DataError message={error} /> 
+        : <DataList data={data} onItemShowDetails={showDialog} />
+      }
+  
+      <ItemDetailDialog itemId={detailsItemId} onClose={hideDialog} open={open} />
+    </div>
+  );
+}
+```
+
+</Step>
+
+<Step>
+
+```diff title="Example 5"
 ```
 
 ```diff
@@ -562,6 +826,150 @@ Object.entries(this.state.configuration).map(([key, value], index) => {
 
 </Step>
 
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js showNumbers title="Example 6"
+const handleExport = async (format) => {
+  const reqPayload = {
+    downloadType: format,
+    fileName: 'Download',
+    filters: allFilters.filters,
+    quickFilters: allFilters.quickFilters.length
+      ? allFilters.quickFilters
+      : undefined,
+    sortBy: allFilters.sortModel,
+  };
+  let fileName =
+    'Download_' + getDateByFormat(new Date(), 'MM_dd_yyyy_HH_mm');
+  const response = await callDownloadApi(reqPayload);
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(new Blob([response.data]));
+  link.setAttribute('download', fileName + exportFormat);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js showNumbers title="Example 6"
+const handleExport = async (format) => {
+  const reqPayload = {
+    downloadType: format,
+    fileName: 'Download',
+    filters: allFilters.filters,
+    quickFilters: allFilters.quickFilters.length
+      ? allFilters.quickFilters
+      : undefined,
+    sortBy: allFilters.sortModel,
+  };
+  let fileName =
+    'Download_' + getDateByFormat(new Date(), 'MM_dd_yyyy_HH_mm');
+  const response = await callDownloadApi(reqPayload);
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(new Blob([response.data]));
+  link.setAttribute('download', fileName + exportFormat);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+```
+
+```js showNumbers title="By grouping"
+const handleExport = async (format) => {
+  const reqPayload = {
+    downloadType: format,
+    fileName: 'Download',
+    filters: allFilters.filters,
+    quickFilters: allFilters.quickFilters.length
+      ? allFilters.quickFilters
+      : undefined,
+    sortBy: allFilters.sortModel,
+  };
+  let fileName =
+    'Download_' + getDateByFormat(new Date(), 'MM_dd_yyyy_HH_mm');
+
+  const response = await callDownloadApi(reqPayload);
+
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(new Blob([response.data]));
+  link.setAttribute('download', fileName + exportFormat);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+```
+
+</Step>
+
+<Step>
+
+```diff showNumbers title="Example 6"
+```
+
+```js showNumbers 1:33 title="By splitting"
+const getFileName = () => 'Download_' + getDateByFormat(new Date(), 'MM_dd_yyyy_HH_mm');
+
+const getPayload = (format) => ({
+  downloadType: format,
+  fileName: getFileName(),
+  filters: allFilters.filters,
+  quickFilters: allFilters.quickFilters.length
+    ? allFilters.quickFilters
+    : undefined,
+  sortBy: allFilters.sortModel,
+});
+
+const downloadFile = ({ arrayBuffer, name, format }) => {
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(new Blob([arrayBuffer]));
+  link.setAttribute('download', name + format);
+
+  document.body.appendChild(link);
+  link.click();
+
+  link.remove();
+}
+
+const handleExport = async (format) => {
+  const payload = getPayload(format);
+  const response = await callDownloadApi(payload);
+  
+  downloadFile({
+    arrayBuffer: response.data,
+    name: payload.fileName,
+    format,
+  })
+}
+```
+
+</Step>
+
+<Step>
+
+```diff showNumbers title="Example 6"
+```
+
+```diff showNumbers 24:33
+```
+
+</Step>
 
 
 </CodeSurferColumns>

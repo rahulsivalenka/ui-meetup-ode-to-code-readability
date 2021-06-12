@@ -65,5 +65,15 @@
 			""
 		],
 		"description": "Add a step inside code surfer columns"
+	},
+	"Insert a code block": {
+		"prefix": "cscode",
+		"body": [
+			"",
+			"```${1:diff}",
+			"${2:code}",
+			"```",
+			"",
+		]
 	}
 }

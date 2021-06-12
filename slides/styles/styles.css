@@ -1,8 +1,11 @@
 .basic-text-slide {
-  text-align: left;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
   line-height: 1.25;
-  padding: 2rem 10rem;
+  padding: 2rem 5rem;
+}
+
+.left-align {
+  text-align: left;
 }
 
 .full-width {

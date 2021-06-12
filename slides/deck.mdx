@@ -22,4 +22,404 @@ export const theme = themes.notes;
 
 ---
 
+<div className="basic-text-slide">
+
+“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
+
+— [Martin Fowler](https://martinfowler.com/)
+
+</div>
+
+---
+
+<div className="basic-text-slide">
+
+Readability can be considered as the ability of allowing the code to be easily, quickly and clearly understandable by someone new or someone that hasn’t seen it a while.
+
+</div>
+
+---
+
+Code with poor readability is
+
+- difficult to understand
+- longer to debug
+- hard to maintain
+- tricky to extend
+
+---
+
+Let's have a look at some examples and try to improve their readability.
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js
+function getFieldDisplayValue(fieldValue) {
+  return fieldValue
+          ? fieldValue?.value
+            ? fieldValue.value?.length
+              ? fieldValue.value?.toString().trim()
+              : EMPTY_DATA_STRING
+            : fieldValue?.toString().trim()
+          : EMPTY_DATA_STRING;
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js
+function getFieldDisplayValue(fieldValue) {
+  return fieldValue
+          ? fieldValue?.value
+            ? fieldValue.value?.length
+              ? fieldValue.value?.toString().trim()
+              : EMPTY_DATA_STRING
+            : fieldValue?.toString().trim()
+          : EMPTY_DATA_STRING;
+}
+```
+
+```js title="By refactoring"
+function getFieldDisplayValue(fieldValue) {
+  // note the == which checks for both null and undefined
+  if (fieldValue == null || fieldValue === '') {
+    return EMPTY_DATA_STRING;
+  }
+
+  const trimmedValue = (fieldValue.value ?? fieldValue).toString().trim();
+  return trimmedValue === '' ? EMPTY_DATA_STRING : trimmedValue;
+}
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```js title="By refactoring further"
+function getFieldDisplayValue(fieldValue) {
+  const trimmedValue = (fieldValue?.value ?? fieldValue)?.toString().trim();
+
+  // note the == which checks for both null and undefined
+  return trimmedValue == null || trimmedValue === ''
+    ? EMPTY_DATA_STRING
+    : trimmedValue;
+}
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```diff
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```jsx
+const ViewToolbar = ({
+  onRefresh,
+  lastUpdatedTime,
+  actionContent,
+  filterContent,
+  onFilterApply,
+  resetFilters,
+  hasFilters,
+  filterOpen,
+  onFilterOpen,
+  onFilterClose,
+  leftContent,
+}) => {
+	// ...
+}
+```
+
+</Step>
+
+<Step>
+
+```diff subtitle="Can you see if 'onFilterOpened' prop exists here?"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```jsx
+const ViewToolbar = ({
+  onRefresh,
+  lastUpdatedTime,
+  actionContent,
+  filterContent,
+  onFilterApply,
+  resetFilters,
+  hasFilters,
+  filterOpen,
+  onFilterOpen,
+  onFilterClose,
+  leftContent,
+}) => {
+	// ...
+}
+```
+
+```jsx title="By alpha sorting"
+const ViewToolbar = ({
+  actionContent,
+  filterContent,
+  filterOpen,
+  hasFilters,
+  lastUpdatedTime,
+  leftContent,
+  onRefresh,
+  onFilterApply,
+  onFilterClose,
+  onFilterOpen,
+  resetFilters,
+}) => {
+	// ...
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js
+const output = {
+  field: formField.field,
+  fieldLabel: formField.display_name,
+  value:
+    values[formField.field]?.value !== undefined
+      ? values[formField.field].value?.toString().trim()
+      : values[formField.field]?.toString().trim(),
+  create_date: values[formField.field]?.create_date
+    ? values[formField.field].create_date
+    : null,
+  expiry_date: values[formField.field]?.expiry_date
+    ? values[formField.field].expiry_date
+    : null,
+  description: values[formField.field]?.description
+    ? values[formField.field].description
+    : '',
+  old_value: values[formField.field]?.old_value
+    ? values[formField.field].old_value
+    : '',
+  isDropdown: formField.component_type === 'dropdown',
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={COLUMN_THEMES}>
+
+<Step>
+
+```js
+const output = {
+  field: formField.field,
+  fieldLabel: formField.display_name,
+  value:
+    values[formField.field]?.value !== undefined
+      ? values[formField.field].value?.toString().trim()
+      : values[formField.field]?.toString().trim(),
+  create_date: values[formField.field]?.create_date
+    ? values[formField.field].create_date
+    : null,
+  expiry_date: values[formField.field]?.expiry_date
+    ? values[formField.field].expiry_date
+    : null,
+  description: values[formField.field]?.description
+    ? values[formField.field].description
+    : '',
+  old_value: values[formField.field]?.old_value
+    ? values[formField.field].old_value
+    : '',
+  isDropdown: formField.component_type === 'dropdown',
+}
+```
+
+```js title="By DRYing"
+// Using object destructuring
+const { component_type, display_name, field } = formField;
+const fieldValue = values[field];
+
+const output = {
+  // Using object shorthand
+  field,
+  fieldLabel: display_name,
+  value:
+    fieldValue?.value !== undefined
+      ? fieldValue.value?.toString().trim()
+      : fieldValue?.toString().trim(),
+  create_date: fieldValue?.create_date
+    ? fieldValue.create_date
+    : null,
+  expiry_date: fieldValue?.expiry_date
+    ? fieldValue.expiry_date
+    : null,
+  description: fieldValue?.description
+    ? fieldValue.description
+    : '',
+  old_value: fieldValue?.old_value
+    ? fieldValue.old_value
+    : '',
+  isDropdown: component_type === 'dropdown',
+}
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```js title="By refactoring"
+// Using object destructuring
+const { component_type, display_name, field } = formField;
+const fieldValue = values[field];
+
+const output = {
+  // Using object shorthand
+  field,
+  fieldLabel: display_name,
+  // Using new operators such as null coalescing (??) and optional chaining (?.)
+  value: (fieldValue?.value ?? fieldValue)?.toString().trim(),
+  create_date: fieldValue?.create_date ?? null,
+  expiry_date: fieldValue?.expiry_date ?? null,
+  description: fieldValue?.description ?? null,
+  old_value: fieldValue?.old_value ?? '',
+  isDropdown: component_type === 'dropdown',
+}
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```js title="By DRYing it again"
+// Using object destructuring
+const { component_type, display_name, field } = formField;
+const fieldValue = values[field];
+
+// Using object destructuring with default values
+const { 
+  create_date = null,
+  description = '',
+  expiry_date = null,
+  old_value = '',
+  value
+} = (fieldValue ?? {});
+
+const output = {
+  // Using object shorthand
+  field,
+  fieldLabel: display_name,
+  // Using new operators such as null coalescing (??) and optional chaining (?.)
+  value: (value ?? fieldValue)?.toString().trim(),
+  create_date,
+  expiry_date,
+  description,
+  old_value,
+  isDropdown: component_type === 'dropdown',
+}
+```
+
+</Step>
+
+<Step>
+
+```diff
+```
+
+```js title="By alpha sorting"
+// Using object destructuring
+const { component_type, display_name, field } = formField;
+const fieldValue = values[field];
+
+// Using object destructuring with default values
+const { 
+  create_date = null,
+  description = '',
+  expiry_date = null,
+  old_value = '',
+  value
+} = (fieldValue ?? {});
+
+const output = {
+  // Using object shorthand
+  create_date,
+  description,
+  expiry_date,
+  field,
+  fieldLabel: display_name,
+  isDropdown: component_type === 'dropdown',
+  old_value,
+  // Using new operators such as null coalescing (??) and optional chaining (?.)
+  value: (value ?? fieldValue)?.toString().trim(),
+}
+```
+
+</Step>
+
+
+<Step>
+
+```diff
+```
+
+```diff
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
 Thank You
